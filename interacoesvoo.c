@@ -183,6 +183,7 @@ void CallFlightTest(){
 
 void InsertFlightAndClientFile(Lista_Cliente **client,Lista_Voo **voo){
     FILE *arquivo;
+    int temp2;
     char temp;
     char tempo[200];
     Flight voox;
@@ -190,8 +191,8 @@ void InsertFlightAndClientFile(Lista_Cliente **client,Lista_Voo **voo){
     voox.tipo = malloc(30*sizeof(char));
     voox.prefixo = malloc(100*sizeof(char));
     pessoa.categoria = malloc(30*sizeof(char));
-    pessoa.nome = malloc(30*sizeof(char));
-    pessoa.programa = malloc(30*sizeof(char));
+    pessoa.nome = malloc(100*sizeof(char));
+    pessoa.programa = malloc(45*sizeof(char));
     system("clear");
     printf("Nome do arquivo que deseja abrir:\n");
     gets(tempo);
@@ -200,42 +201,40 @@ void InsertFlightAndClientFile(Lista_Cliente **client,Lista_Voo **voo){
         printf("Erro ao ler o arquivo.\n");
         printf("Pressione qualquer tecla para voltar ao menu:\n");
         getchar();
-        return 0;
     }else printf("Aberto com sucesso.\n");
     while(!feof(arquivo)){
     fscanf(arquivo,"%c%*c",&temp);
     if(temp == 'V'){
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(voox.prefixo,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(voox.siglaO,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(voox.siglaD,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(voox.horaP,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(voox.horaC,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(voox.duracao,tempo);
-        fscanf(arquivo,"%[^\n]%*c",&tempo);
+        fscanf(arquivo,"%[^\n]%*c",tempo);
         strcpy(voox.tipo,tempo);
         voox.nomeD=malloc(sizeof(char)*30);
-        voox.nomeO=malloc(sizeof(char)*30); 
+        voox.nomeO=malloc(sizeof(char)*30);
         strcpy(voox.nomeD,"Nao informado");
-        strcpy(voox.nomeO,"Nao Informado"); 
+        strcpy(voox.nomeO,"Nao Informado");
         *voo = insertListFlight((*voo),voox);
     }else if(temp == 'P'){
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(pessoa.programa,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
-        removeSpaces(tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(pessoa.nome,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(pessoa.cpf,tempo);
-        fscanf(arquivo,"%[^;]%*c",&tempo);
+        fscanf(arquivo,"%[^;]%*c",tempo);
         strcpy(pessoa.categoria,tempo);
-        fscanf(arquivo,"%d%*c",&tempo);
-        pessoa.saldo = tempo;
+        fscanf(arquivo,"%d%*c",&temp2);
+        pessoa.saldo = temp2;
         *client = insertListClient((*client),pessoa);
     }
     }
